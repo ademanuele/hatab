@@ -59,12 +59,8 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      /*
-        REPLACE THIS GRADIENT with a real hero image:
-        background: url('your-hero-image.jpg') center/cover no-repeat;
-      */
       background:
-        linear-gradient(135deg, #5C3D2E 0%, #8B6F47 40%, #6B8E5A 100%);
+        url('img/hero.HEIC') center/cover no-repeat;
     }
 
     .hero::before {
@@ -208,6 +204,9 @@
       font-size: 1.2rem;
       color: #FAF3E0;
       font-weight: 700;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .project-card .card-body {
@@ -303,6 +302,9 @@
       font-weight: 700;
       opacity: 0;
       transition: opacity 0.35s;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
     }
 
     .lightbox-gallery .gallery-slide.active {
@@ -495,59 +497,68 @@
           title: "Bookstand",
           desc: "Three layer book stand made of poplar.",
           images: [
-            { background: "url(img/bookstand/1.jpeg) center/cover", label: "Overview" },
-            { background: "url(img/bookstand/2.jpeg) center/cover", label: "Detail" },
-            { background: "url(img/bookstand/3.jpeg) center/cover", label: "Close-Up" },
-            { background: "url(img/bookstand/4.jpeg) center/cover", label: "Finished Piece" }
+            { background: "url(img/bookstand/1.jpeg)" },
+            { background: "url(img/bookstand/2.jpeg)" },
+            { background: "url(img/bookstand/3.jpeg)" },
+            { background: "url(img/bookstand/4.jpeg)" }
           ]
         },
         {
-          title: "Floating Shelves",
-          desc: "Reclaimed oak with hidden bracket mounting system.",
+          title: "Dovetail Boxes",
+          desc: "Traditional keepsake boxes with dovetail joinery, in poplar.",
           images: [
-            { background: "linear-gradient(135deg,#5C3D2E,#8B6F47)", label: "Installed" },
-            { background: "linear-gradient(160deg,#8B6F47,#5C3D2E)", label: "Bracket System" },
-            { background: "linear-gradient(180deg,#3e2a1c,#8B6F47)", label: "Edge Detail" }
+            { background: "url(img/boxes_poplar/1.HEIC)" },
+            { background: "url(img/boxes_poplar/2.HEIC)" },
+            { background: "url(img/boxes_poplar/3.HEIC)" },
+            { background: "url(img/boxes_poplar/4.HEIC)" },
+            { background: "url(img/boxes_poplar/5.HEIC)" }
           ]
         },
         {
-          title: "Garden Bench",
-          desc: "Western red cedar, finished with natural tung oil.",
+          title: "Picture Frames",
+          desc: "Rustic picture frames from recycled pallet wood.",
           images: [
-            { background: "linear-gradient(135deg,#6B8E5A,#4a6e3c)", label: "Finished Bench" },
-            { background: "linear-gradient(160deg,#4a6e3c,#6B8E5A)", label: "Arm Rest Detail" },
-            { background: "linear-gradient(180deg,#3d5c2e,#6B8E5A)", label: "Oil Finish Close-Up" }
+            { background: "url(img/frames/1.jpg)" },
+            { background: "url(img/frames/2.jpg)" }
           ]
         },
         {
-          title: "Kitchen Cutting Boards",
-          desc: "End-grain maple and cherry with mineral oil finish.",
+          title: "Medal Frame",
+          desc: "A showcase for sporting medals, from reclaimed and poplar wood.",
           images: [
-            { background: "linear-gradient(135deg,#8B6F47,#b8956a)", label: "Collection" },
-            { background: "linear-gradient(160deg,#b8956a,#8B6F47)", label: "End-Grain Pattern" },
-            { background: "linear-gradient(180deg,#6d5530,#b8956a)", label: "Cherry Detail" },
-            { background: "linear-gradient(200deg,#8B6F47,#d4a870)", label: "Oiled Finish" }
+            { background: "url(img/medals/1.jpg)" }
           ]
         },
         {
-          title: "Bookcase",
-          desc: "Quarter-sawn white oak with adjustable shelving.",
+          title: "Reclaimed Wood Dovetail Box",
+          desc: "Traditional keepsake box with dovetail joinery, from reclaimed pallet wood.",
           images: [
-            { background: "linear-gradient(135deg,#5a4535,#7a5c3e)", label: "Full View" },
-            { background: "linear-gradient(160deg,#7a5c3e,#5a4535)", label: "Shelf Bracket" },
-            { background: "linear-gradient(180deg,#3e3025,#7a5c3e)", label: "Quarter-Sawn Grain" }
+            { background: "url(img/pallet_box/1.heic)" },
+            { background: "url(img/pallet_box/2.heic)" },
+            { background: "url(img/pallet_box/3.heic)" },
+            { background: "url(img/pallet_box/4.heic)" },
+            { background: "url(img/pallet_box/5.heic)" }
           ]
         },
         {
-          title: "Jewelry Box",
-          desc: "Dovetailed mahogany with hand-cut inlays.",
+          title: "Reclaimed Wood Keepsake Boxes",
+          desc: "Simple keepsake boxes in various styles. All from reclaimed wood.",
           images: [
-            { background: "linear-gradient(135deg,#6d5a40,#6B8E5A)", label: "Closed" },
-            { background: "linear-gradient(160deg,#6B8E5A,#6d5a40)", label: "Open — Interior" },
-            { background: "linear-gradient(180deg,#4a3e28,#6B8E5A)", label: "Dovetail Close-Up" }
+            { background: "url(img/more_boxes/1.jpg)" },
+            { background: "url(img/more_boxes/2.jpg)" },
+            { background: "url(img/more_boxes/3.jpg)" },
+            { background: "url(img/more_boxes/4.jpg)" }
           ]
         }
       ];
+
+      function setBg(el, value) {
+        if (value.indexOf('url(') === 0) {
+          el.style.backgroundImage = value;
+        } else {
+          el.style.background = value;
+        }
+      }
 
       // ── Build carousel cards from the array ──
       var track = document.getElementById('carousel-track');
@@ -561,7 +572,7 @@
 
         var thumb = document.createElement('div');
         thumb.className = 'image-placeholder';
-        thumb.style.background = project.images[0].background;
+        setBg(thumb, project.images[0].background);
         thumb.textContent = project.images[0].label;
 
         var body = document.createElement('div');
@@ -599,7 +610,7 @@
         project.images.forEach(function (img, i) {
           var div = document.createElement('div');
           div.className = 'gallery-slide';
-          div.style.background = img.background;
+          setBg(div, img.background);
           div.textContent = img.label;
           if (i === 0) div.classList.add('active');
           lbGallery.insertBefore(div, lbGallery.querySelector('.lightbox-nav'));
