@@ -1,0 +1,656 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ħatab</title>
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      color: #3a2a1a;
+      background-color: #FAF3E0;
+      line-height: 1.6;
+    }
+
+    h1, h2, h3 {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-weight: 700;
+    }
+
+    /* ── Navigation ── */
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 2rem;
+      background: rgba(92, 61, 46, 0.92);
+      backdrop-filter: blur(6px);
+    }
+
+    nav .logo {
+      font-family: Georgia, "Times New Roman", Times, serif;
+      color: #FAF3E0;
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.03em;
+    }
+
+
+    /* ── Hero Section ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      /*
+        REPLACE THIS GRADIENT with a real hero image:
+        background: url('your-hero-image.jpg') center/cover no-repeat;
+      */
+      background:
+        linear-gradient(135deg, #5C3D2E 0%, #8B6F47 40%, #6B8E5A 100%);
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(42, 28, 18, 0.55);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 700px;
+      padding: 2rem;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: #FAF3E0;
+      margin-bottom: 1rem;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.25rem);
+      color: #e8dcc8;
+      margin-bottom: 2rem;
+    }
+
+    .btn svg {
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 0.5rem;
+      position: relative;
+      top: -1px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.85rem 2rem;
+      border: none;
+      border-radius: 4px;
+      font-size: 1rem;
+      font-weight: 600;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .btn:active {
+      transform: scale(0.97);
+    }
+
+    .btn-primary {
+      background: #6B8E5A;
+      color: #FAF3E0;
+    }
+
+    .btn-primary:hover {
+      background: #5a7a4b;
+    }
+
+    .btn-secondary {
+      background: #8B6F47;
+      color: #FAF3E0;
+    }
+
+    .btn-secondary:hover {
+      background: #7a6040;
+    }
+
+    /* ── Section shared ── */
+    section {
+      padding: 5rem 2rem;
+    }
+
+    .section-title {
+      text-align: center;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      color: #5C3D2E;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-subtitle {
+      text-align: center;
+      color: #8B6F47;
+      margin-bottom: 3rem;
+      font-size: 1.05rem;
+    }
+
+    /* ── Project Carousel ── */
+    .projects {
+      background: #f3ead5;
+    }
+
+    .carousel-wrapper {
+      position: relative;
+      margin: 0 auto;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+      scrollbar-width: none;
+    }
+
+    .carousel-wrapper::-webkit-scrollbar {
+      display: none;
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 1.5rem;
+      padding: 0.5rem 2rem;
+    }
+
+    .carousel-slide {
+      flex: 0 0 auto;
+      scroll-snap-align: center;
+    }
+
+    .project-card {
+      width: 340px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: #FAF3E0;
+      box-shadow: 0 4px 16px rgba(60, 40, 20, 0.15);
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(60, 40, 20, 0.25);
+    }
+
+    .project-card .image-placeholder {
+      height: 320px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.2rem;
+      color: #FAF3E0;
+      font-weight: 700;
+    }
+
+    .project-card .card-body {
+      padding: 1.25rem 1.5rem;
+    }
+
+    .project-card h3 {
+      color: #5C3D2E;
+      margin-bottom: 0.35rem;
+    }
+
+    .project-card p {
+      color: #6b5840;
+      font-size: 0.95rem;
+    }
+
+    .project-card .card-hint {
+      font-size: 0.8rem;
+      color: #8B6F47;
+      margin-top: 0.5rem;
+      opacity: 0.7;
+    }
+
+    /* ── Lightbox Modal ── */
+    .lightbox {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(20, 12, 6, 0.92);
+      backdrop-filter: blur(8px);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .lightbox.open {
+      display: flex;
+      opacity: 1;
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1rem;
+      right: 1.5rem;
+      background: none;
+      border: none;
+      color: #FAF3E0;
+      font-size: 2rem;
+      cursor: pointer;
+      opacity: 0.7;
+      transition: opacity 0.2s;
+      z-index: 210;
+    }
+
+    .lightbox-close:hover { opacity: 1; }
+
+    .lightbox-title {
+      color: #FAF3E0;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.5rem;
+      margin-bottom: 0.25rem;
+      text-align: center;
+    }
+
+    .lightbox-desc {
+      color: #c4b498;
+      font-size: 0.95rem;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+
+    .lightbox-gallery {
+      position: relative;
+      width: 90vw;
+      max-width: 700px;
+      aspect-ratio: 4 / 3;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+
+    .lightbox-gallery .gallery-slide {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.3rem;
+      color: #FAF3E0;
+      font-weight: 700;
+      opacity: 0;
+      transition: opacity 0.35s;
+    }
+
+    .lightbox-gallery .gallery-slide.active {
+      opacity: 1;
+    }
+
+    .lightbox-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(250, 243, 224, 0.15);
+      color: #FAF3E0;
+      font-size: 1.3rem;
+      cursor: pointer;
+      z-index: 210;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .lightbox-nav:hover {
+      background: rgba(250, 243, 224, 0.3);
+    }
+
+    .lightbox-nav.prev { left: 0.75rem; }
+    .lightbox-nav.next { right: 0.75rem; }
+
+    .lightbox-counter {
+      color: #c4b498;
+      font-size: 0.85rem;
+      margin-top: 1rem;
+      text-align: center;
+    }
+
+
+    /* ── About Section ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      max-width: 960px;
+      margin: 0 auto;
+      align-items: center;
+    }
+
+    .about-image-placeholder {
+      width: 100%;
+      aspect-ratio: 1;
+      border-radius: 8px;
+      background: linear-gradient(135deg, #8B6F47, #5C3D2E);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #FAF3E0;
+      font-family: Georgia, "Times New Roman", Times, serif;
+      font-size: 1.1rem;
+      box-shadow: 0 4px 16px rgba(60, 40, 20, 0.18);
+    }
+
+    .about-text h2 {
+      font-size: 1.75rem;
+      color: #5C3D2E;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p {
+      margin-bottom: 1rem;
+      color: #5a4530;
+    }
+
+    .about-text .btn {
+      margin-top: 0.75rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 2rem;
+      background: #5C3D2E;
+      color: #c4b498;
+      font-size: 0.9rem;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 768px) {
+      .about-grid {
+        grid-template-columns: 1fr;
+        text-align: center;
+      }
+
+      .about-image-placeholder {
+        max-width: 300px;
+        margin: 0 auto;
+      }
+
+      .project-card {
+        width: 280px;
+      }
+
+      .project-card .image-placeholder {
+        height: 220px;
+      }
+
+      .lightbox-gallery {
+        width: 94vw;
+      }
+
+      .lightbox-nav {
+        width: 36px;
+        height: 36px;
+        font-size: 1.1rem;
+      }
+
+      .lightbox-nav.prev { left: 0.4rem; }
+      .lightbox-nav.next { right: 0.4rem; }
+    }
+
+    @media (max-width: 480px) {
+      nav { padding: 0.75rem 1rem; }
+      nav .logo { font-size: 1.05rem; }
+      nav a { font-size: 0.85rem; }
+      section { padding: 3.5rem 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav>
+    <span class="logo">Ħatab</span>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="hero-content">
+      <h1>Wooden curiosities handmade in Malta</h1>
+      <p>Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood for a rustic look and feel.</p>
+      <a href="https://wa.me/1234567890?text=Hi%2C%20I%27d%20like%20to%20discuss%20a%20project" class="btn btn-primary" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Get in Touch</a>
+    </div>
+  </section>
+
+  <!-- Projects Carousel -->
+  <section class="projects" id="projects">
+    <h2 class="section-title">Recent Projects</h2>
+
+    <div class="carousel-wrapper">
+      <div class="carousel-track" id="carousel-track"></div>
+    </div>
+  </section>
+
+  <!-- About -->
+  <section id="about">
+    <div class="about-grid">
+      <div class="about-image-placeholder">Your Photo Here</div>
+      <div class="about-text">
+        <h2>About Me</h2>
+        <p>Hello. My name is Arthur and I am a self-taught woodworker, native to Malta. I have been pursuing this craft properly for the past 3 years but have been interested in it from a very young age.</p>
+        <p>The best reward the craft offers is in the joy that is brought to anyone receiving one of my pieces. I would be happy to hear from you if you have an idea that you would like to bring to life.</p>
+        <a href="https://wa.me/1234567890" class="btn btn-secondary" target="_blank" rel="noopener"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>Contact Me</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Lightbox Modal -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" aria-label="Close gallery">&times;</button>
+    <h3 class="lightbox-title" id="lb-title"></h3>
+    <p class="lightbox-desc" id="lb-desc"></p>
+    <div class="lightbox-gallery" id="lb-gallery">
+      <button class="lightbox-nav prev" aria-label="Previous image">&#8249;</button>
+      <button class="lightbox-nav next" aria-label="Next image">&#8250;</button>
+    </div>
+    <p class="lightbox-counter" id="lb-counter"></p>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    &copy; 2026 Ħatab. All rights reserved.
+  </footer>
+
+  <script>
+    (function () {
+      var projects = [
+        {
+          title: "Bookstand",
+          desc: "Three layer book stand made of poplar.",
+          images: [
+            { background: "url(img/bookstand/1.jpeg) center/cover", label: "Overview" },
+            { background: "url(img/bookstand/2.jpeg) center/cover", label: "Detail" },
+            { background: "url(img/bookstand/3.jpeg) center/cover", label: "Close-Up" },
+            { background: "url(img/bookstand/4.jpeg) center/cover", label: "Finished Piece" }
+          ]
+        },
+        {
+          title: "Floating Shelves",
+          desc: "Reclaimed oak with hidden bracket mounting system.",
+          images: [
+            { background: "linear-gradient(135deg,#5C3D2E,#8B6F47)", label: "Installed" },
+            { background: "linear-gradient(160deg,#8B6F47,#5C3D2E)", label: "Bracket System" },
+            { background: "linear-gradient(180deg,#3e2a1c,#8B6F47)", label: "Edge Detail" }
+          ]
+        },
+        {
+          title: "Garden Bench",
+          desc: "Western red cedar, finished with natural tung oil.",
+          images: [
+            { background: "linear-gradient(135deg,#6B8E5A,#4a6e3c)", label: "Finished Bench" },
+            { background: "linear-gradient(160deg,#4a6e3c,#6B8E5A)", label: "Arm Rest Detail" },
+            { background: "linear-gradient(180deg,#3d5c2e,#6B8E5A)", label: "Oil Finish Close-Up" }
+          ]
+        },
+        {
+          title: "Kitchen Cutting Boards",
+          desc: "End-grain maple and cherry with mineral oil finish.",
+          images: [
+            { background: "linear-gradient(135deg,#8B6F47,#b8956a)", label: "Collection" },
+            { background: "linear-gradient(160deg,#b8956a,#8B6F47)", label: "End-Grain Pattern" },
+            { background: "linear-gradient(180deg,#6d5530,#b8956a)", label: "Cherry Detail" },
+            { background: "linear-gradient(200deg,#8B6F47,#d4a870)", label: "Oiled Finish" }
+          ]
+        },
+        {
+          title: "Bookcase",
+          desc: "Quarter-sawn white oak with adjustable shelving.",
+          images: [
+            { background: "linear-gradient(135deg,#5a4535,#7a5c3e)", label: "Full View" },
+            { background: "linear-gradient(160deg,#7a5c3e,#5a4535)", label: "Shelf Bracket" },
+            { background: "linear-gradient(180deg,#3e3025,#7a5c3e)", label: "Quarter-Sawn Grain" }
+          ]
+        },
+        {
+          title: "Jewelry Box",
+          desc: "Dovetailed mahogany with hand-cut inlays.",
+          images: [
+            { background: "linear-gradient(135deg,#6d5a40,#6B8E5A)", label: "Closed" },
+            { background: "linear-gradient(160deg,#6B8E5A,#6d5a40)", label: "Open — Interior" },
+            { background: "linear-gradient(180deg,#4a3e28,#6B8E5A)", label: "Dovetail Close-Up" }
+          ]
+        }
+      ];
+
+      // ── Build carousel cards from the array ──
+      var track = document.getElementById('carousel-track');
+
+      projects.forEach(function (project, index) {
+        var slide = document.createElement('div');
+        slide.className = 'carousel-slide';
+
+        var card = document.createElement('div');
+        card.className = 'project-card';
+
+        var thumb = document.createElement('div');
+        thumb.className = 'image-placeholder';
+        thumb.style.background = project.images[0].background;
+        thumb.textContent = project.images[0].label;
+
+        var body = document.createElement('div');
+        body.className = 'card-body';
+        body.innerHTML =
+          '<h3>' + project.title + '</h3>' +
+          '<p>' + project.desc + '</p>' +
+          '<p class="card-hint">Tap to view gallery</p>';
+
+        card.appendChild(thumb);
+        card.appendChild(body);
+        card.addEventListener('click', function () { openLightbox(index); });
+        slide.appendChild(card);
+        track.appendChild(slide);
+      });
+
+      // ── Lightbox ──
+      var lightbox = document.getElementById('lightbox');
+      var lbTitle = document.getElementById('lb-title');
+      var lbDesc = document.getElementById('lb-desc');
+      var lbGallery = document.getElementById('lb-gallery');
+      var lbCounter = document.getElementById('lb-counter');
+      var currentSlide = 0;
+      var gallerySlides = [];
+
+      function openLightbox(projectIndex) {
+        var project = projects[projectIndex];
+        lbTitle.textContent = project.title;
+        lbDesc.textContent = project.desc;
+
+        // Remove old slides
+        lbGallery.querySelectorAll('.gallery-slide').forEach(function (el) { el.remove(); });
+
+        gallerySlides = [];
+        project.images.forEach(function (img, i) {
+          var div = document.createElement('div');
+          div.className = 'gallery-slide';
+          div.style.background = img.background;
+          div.textContent = img.label;
+          if (i === 0) div.classList.add('active');
+          lbGallery.insertBefore(div, lbGallery.querySelector('.lightbox-nav'));
+          gallerySlides.push(div);
+        });
+
+        currentSlide = 0;
+        updateCounter();
+        lightbox.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+
+      function goToSlide(index) {
+        gallerySlides[currentSlide].classList.remove('active');
+        currentSlide = ((index % gallerySlides.length) + gallerySlides.length) % gallerySlides.length;
+        gallerySlides[currentSlide].classList.add('active');
+        updateCounter();
+      }
+
+      function updateCounter() {
+        lbCounter.textContent = (currentSlide + 1) + ' / ' + gallerySlides.length;
+      }
+
+      lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
+
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+
+      lbGallery.querySelector('.lightbox-nav.prev').addEventListener('click', function (e) {
+        e.stopPropagation();
+        goToSlide(currentSlide - 1);
+      });
+
+      lbGallery.querySelector('.lightbox-nav.next').addEventListener('click', function (e) {
+        e.stopPropagation();
+        goToSlide(currentSlide + 1);
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (!lightbox.classList.contains('open')) return;
+        if (e.key === 'Escape') closeLightbox();
+        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+      });
+    })();
+  </script>
+</body>
+</html>
