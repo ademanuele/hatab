@@ -3,6 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
+
+  <!-- Open Graph (Facebook, LinkedIn, iMessage, WhatsApp, etc.) -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ħatab — Wooden Curiosities Handmade in Malta">
+  <meta property="og:description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
+  <meta property="og:image" content="img/hero.HEIC">
+  <meta property="og:image:alt" content="Handmade wooden creations by Ħatab">
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ħatab — Wooden Curiosities Handmade in Malta">
+  <meta name="twitter:description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
+  <meta name="twitter:image" content="img/hero.HEIC">
+  <meta name="twitter:image:alt" content="Handmade wooden creations by Ħatab">
+
   <title>Ħatab</title>
   <style>
     *, *::before, *::after {
@@ -281,13 +297,21 @@
       text-align: center;
     }
 
+    .lightbox-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      width: 90vw;
+      max-width: 800px;
+    }
+
     .lightbox-gallery {
       position: relative;
-      width: 90vw;
-      max-width: 700px;
+      flex: 1;
       aspect-ratio: 4 / 3;
       border-radius: 8px;
       overflow: hidden;
+      touch-action: pan-y;
     }
 
     .lightbox-gallery .gallery-slide {
@@ -312,9 +336,7 @@
     }
 
     .lightbox-nav {
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
+      flex-shrink: 0;
       width: 44px;
       height: 44px;
       border-radius: 50%;
@@ -333,9 +355,6 @@
     .lightbox-nav:hover {
       background: rgba(250, 243, 224, 0.3);
     }
-
-    .lightbox-nav.prev { left: 0.75rem; }
-    .lightbox-nav.next { right: 0.75rem; }
 
     .lightbox-counter {
       color: #c4b498;
@@ -413,18 +432,13 @@
         height: 220px;
       }
 
-      .lightbox-gallery {
-        width: 94vw;
+      .lightbox-row {
+        width: 96vw;
       }
 
       .lightbox-nav {
-        width: 36px;
-        height: 36px;
-        font-size: 1.1rem;
+        display: none;
       }
-
-      .lightbox-nav.prev { left: 0.4rem; }
-      .lightbox-nav.next { right: 0.4rem; }
     }
 
     @media (max-width: 480px) {
@@ -478,8 +492,9 @@
     <button class="lightbox-close" aria-label="Close gallery">&times;</button>
     <h3 class="lightbox-title" id="lb-title"></h3>
     <p class="lightbox-desc" id="lb-desc"></p>
-    <div class="lightbox-gallery" id="lb-gallery">
+    <div class="lightbox-row">
       <button class="lightbox-nav prev" aria-label="Previous image">&#8249;</button>
+      <div class="lightbox-gallery" id="lb-gallery"></div>
       <button class="lightbox-nav next" aria-label="Next image">&#8250;</button>
     </div>
     <p class="lightbox-counter" id="lb-counter"></p>
@@ -533,11 +548,11 @@
           title: "Reclaimed Wood Dovetail Box",
           desc: "Traditional keepsake box with dovetail joinery, from reclaimed pallet wood.",
           images: [
-            { background: "url(img/pallet_box/1.heic)" },
-            { background: "url(img/pallet_box/2.heic)" },
-            { background: "url(img/pallet_box/3.heic)" },
-            { background: "url(img/pallet_box/4.heic)" },
-            { background: "url(img/pallet_box/5.heic)" }
+            { background: "url(img/pallet_box/1.HEIC)" },
+            { background: "url(img/pallet_box/2.HEIC)" },
+            { background: "url(img/pallet_box/3.HEIC)" },
+            { background: "url(img/pallet_box/4.HEIC)" },
+            { background: "url(img/pallet_box/5.HEIC)" }
           ]
         },
         {
@@ -613,7 +628,7 @@
           setBg(div, img.background);
           div.textContent = img.label;
           if (i === 0) div.classList.add('active');
-          lbGallery.insertBefore(div, lbGallery.querySelector('.lightbox-nav'));
+          lbGallery.appendChild(div);
           gallerySlides.push(div);
         });
 
@@ -645,12 +660,12 @@
         if (e.target === lightbox) closeLightbox();
       });
 
-      lbGallery.querySelector('.lightbox-nav.prev').addEventListener('click', function (e) {
+      lightbox.querySelector('.lightbox-nav.prev').addEventListener('click', function (e) {
         e.stopPropagation();
         goToSlide(currentSlide - 1);
       });
 
-      lbGallery.querySelector('.lightbox-nav.next').addEventListener('click', function (e) {
+      lightbox.querySelector('.lightbox-nav.next').addEventListener('click', function (e) {
         e.stopPropagation();
         goToSlide(currentSlide + 1);
       });
@@ -661,6 +676,30 @@
         if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
         if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
       });
+
+      // ── Touch swipe support ──
+      var touchStartX = 0;
+      var touchStartY = 0;
+      var swiping = false;
+
+      lbGallery.addEventListener('touchstart', function (e) {
+        touchStartX = e.changedTouches[0].clientX;
+        touchStartY = e.changedTouches[0].clientY;
+        swiping = true;
+      }, { passive: true });
+
+      lbGallery.addEventListener('touchend', function (e) {
+        if (!swiping) return;
+        swiping = false;
+        var dx = e.changedTouches[0].clientX - touchStartX;
+        var dy = e.changedTouches[0].clientY - touchStartY;
+        if (Math.abs(dx) < 40 || Math.abs(dy) > Math.abs(dx)) return;
+        if (dx < 0) {
+          goToSlide(currentSlide + 1);
+        } else {
+          goToSlide(currentSlide - 1);
+        }
+      }, { passive: true });
     })();
   </script>
 </body>
