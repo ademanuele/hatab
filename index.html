@@ -9,14 +9,14 @@
   <meta property="og:type" content="website">
   <meta property="og:title" content="Ħatab — Wooden Curiosities Handmade in Malta">
   <meta property="og:description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
-  <meta property="og:image" content="img/hero.HEIC">
+  <meta property="og:image" content="img/hero.jpg">
   <meta property="og:image:alt" content="Handmade wooden creations by Ħatab">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ħatab — Wooden Curiosities Handmade in Malta">
   <meta name="twitter:description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
-  <meta name="twitter:image" content="img/hero.HEIC">
+  <meta name="twitter:image" content="img/hero.jpg">
   <meta name="twitter:image:alt" content="Handmade wooden creations by Ħatab">
 
   <title>Ħatab</title>
@@ -76,7 +76,7 @@
       justify-content: center;
       text-align: center;
       background:
-        url('img/hero.HEIC') center/cover no-repeat;
+        url('img/hero.jpg') center/cover no-repeat;
     }
 
     .hero::before {
@@ -325,7 +325,7 @@
     .lightbox-gallery {
       position: relative;
       flex: 1;
-      aspect-ratio: 4 / 3;
+      height: 70vh;
       border-radius: 8px;
       overflow: hidden;
       touch-action: pan-y;
@@ -343,9 +343,10 @@
       font-weight: 700;
       opacity: 0;
       transition: opacity 0.35s;
-      background-size: cover;
+      background-size: contain;
       background-position: center;
       background-repeat: no-repeat;
+      background-color: #1a1a1a;
     }
 
     .lightbox-gallery .gallery-slide.active {
@@ -393,15 +394,8 @@
 
     .about-image-placeholder {
       width: 100%;
-      aspect-ratio: 1;
+      height: auto;
       border-radius: 8px;
-      background: linear-gradient(135deg, #8B6F47, #5C3D2E);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #FAF3E0;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 1.1rem;
       box-shadow: 0 4px 16px rgba(60, 40, 20, 0.18);
     }
 
@@ -437,7 +431,6 @@
       }
 
       .about-image-placeholder {
-        max-width: 300px;
         margin: 0 auto;
       }
 
@@ -497,7 +490,7 @@
   <!-- About -->
   <section id="about">
     <div class="about-grid">
-      <div class="about-image-placeholder">Your Photo Here</div>
+      <img src="img/me.jpg" alt="Arthur Demanuele" class="about-image-placeholder">
       <div class="about-text">
         <h2>About Me</h2>
         <p>Hello. My name is Arthur and I am a self-taught woodworker, native to Malta. I have been pursuing this craft properly for the past 3 years but have been interested in it from a very young age.</p>
@@ -542,24 +535,31 @@
           ]
         },
         {
+          title: "Framed Maltese Tile",
+          desc: "Traditional Maltese floor tile, framed and polished.",
+          images: [
+            { background: "url(img/tile/1.jpg)" },
+            { background: "url(img/tile/2.jpg)" }
+          ]
+        },
+        {
           title: "Monitor Stand",
           desc: "Monitor stand with drawer. Poplar.",
           images: [
-            { background: "url(img/monitor_stand/1.HEIC)" },
-            { background: "url(img/monitor_stand/2.HEIC)" },
-            { background: "url(img/monitor_stand/3.HEIC)" },
-            { background: "url(img/monitor_stand/4.HEIC)" }
+            { background: "url(img/monitor_stand/1.jpg)" },
+            { background: "url(img/monitor_stand/2.jpg)" },
+            { background: "url(img/monitor_stand/3.jpg)" }
           ]
         },
         {
           title: "Dovetail Boxes",
           desc: "Traditional keepsake boxes with dovetail joinery, in poplar.",
           images: [
-            { background: "url(img/boxes_poplar/1.HEIC)" },
-            { background: "url(img/boxes_poplar/2.HEIC)" },
-            { background: "url(img/boxes_poplar/3.HEIC)" },
-            { background: "url(img/boxes_poplar/4.HEIC)" },
-            { background: "url(img/boxes_poplar/5.HEIC)" }
+            { background: "url(img/boxes_poplar/1.jpg)" },
+            { background: "url(img/boxes_poplar/2.jpg)" },
+            { background: "url(img/boxes_poplar/3.jpg)" },
+            { background: "url(img/boxes_poplar/4.jpg)" },
+            { background: "url(img/boxes_poplar/5.jpg)" }
           ]
         },
         {
@@ -581,11 +581,11 @@
           title: "Reclaimed Wood Dovetail Box",
           desc: "Traditional keepsake box with dovetail joinery, from reclaimed pallet wood.",
           images: [
-            { background: "url(img/pallet_box/1.HEIC)" },
-            { background: "url(img/pallet_box/2.HEIC)" },
-            { background: "url(img/pallet_box/3.HEIC)" },
-            { background: "url(img/pallet_box/4.HEIC)" },
-            { background: "url(img/pallet_box/5.HEIC)" }
+            { background: "url(img/pallet_box/1.jpg)" },
+            { background: "url(img/pallet_box/2.jpg)" },
+            { background: "url(img/pallet_box/3.jpg)" },
+            { background: "url(img/pallet_box/4.jpg)" },
+            { background: "url(img/pallet_box/5.jpg)" }
           ]
         },
         {
