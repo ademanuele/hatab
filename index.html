@@ -5,21 +5,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
 
+  <link rel="canonical" href="https://hatab.mt/">
+
   <!-- Open Graph (Facebook, LinkedIn, iMessage, WhatsApp, etc.) -->
   <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hatab.mt/">
   <meta property="og:title" content="Ħatab — Wooden Curiosities Handmade in Malta">
   <meta property="og:description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
-  <meta property="og:image" content="img/hero.jpg">
+  <meta property="og:image" content="https://hatab.mt/img/optimized/hero-1280.webp">
   <meta property="og:image:alt" content="Handmade wooden creations by Ħatab">
 
   <!-- Twitter Card -->
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Ħatab — Wooden Curiosities Handmade in Malta">
   <meta name="twitter:description" content="Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood.">
-  <meta name="twitter:image" content="img/hero.jpg">
+  <meta name="twitter:image" content="https://hatab.mt/img/optimized/hero-1280.webp">
   <meta name="twitter:image:alt" content="Handmade wooden creations by Ħatab">
 
-  <title>Ħatab</title>
+  <title>Ħatab | Custom Woodworking Projects Malta</title>
   <link rel="icon" type="image/png" sizes="64x64" href="img/favicon.png">
   <style>
     *, *::before, *::after {
@@ -88,8 +91,16 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background:
-        url('img/hero.jpg') center/cover no-repeat;
+      isolation: isolate;
+    }
+
+    .hero-image {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
     }
 
     .hero::before {
@@ -97,6 +108,7 @@
       position: absolute;
       inset: 0;
       background: rgba(42, 28, 18, 0.55);
+      z-index: -1;
     }
 
     .hero-content {
@@ -250,18 +262,50 @@
       box-shadow: 0 8px 24px rgba(60, 40, 20, 0.25);
     }
 
-    .project-card .image-placeholder {
+    .project-cover {
+      display: block;
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .project-thumbnail {
+      display: block;
+      width: 100%;
       height: 320px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 1.2rem;
-      color: #FAF3E0;
-      font-weight: 700;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      object-fit: cover;
+    }
+
+    .project-cover:focus-visible,
+    .project-photo:focus-visible,
+    .project-gallery summary:focus-visible {
+      outline: 3px solid #6B8E5A;
+      outline-offset: -3px;
+    }
+
+    .project-gallery {
+      padding: 0 1.5rem 1.25rem;
+      cursor: auto;
+    }
+
+    .project-gallery summary {
+      color: #6b5840;
+      font-size: 0.85rem;
+      cursor: pointer;
+    }
+
+    .project-photos {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.5rem;
+      margin-top: 0.75rem;
+    }
+
+    .project-photo img {
+      display: block;
+      width: 100%;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 4px;
     }
 
     .project-card .card-body {
@@ -347,32 +391,19 @@
     .lightbox-gallery {
       position: relative;
       flex: 1;
+      min-width: 0;
       height: 70vh;
       border-radius: 8px;
       overflow: hidden;
       touch-action: pan-y;
     }
 
-    .lightbox-gallery .gallery-slide {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: Georgia, "Times New Roman", Times, serif;
-      font-size: 1.3rem;
-      color: #FAF3E0;
-      font-weight: 700;
-      opacity: 0;
-      transition: opacity 0.35s;
-      background-size: contain;
-      background-position: center;
-      background-repeat: no-repeat;
+    .lightbox-gallery img {
+      display: block;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
       background-color: #1a1a1a;
-    }
-
-    .lightbox-gallery .gallery-slide.active {
-      opacity: 1;
     }
 
     .lightbox-nav {
@@ -460,7 +491,7 @@
         width: 280px;
       }
 
-      .project-card .image-placeholder {
+      .project-thumbnail {
         height: 220px;
       }
 
@@ -493,6 +524,10 @@
 
   <!-- Hero -->
   <section class="hero" id="hero">
+    <img class="hero-image" src="img/optimized/hero-1280.webp"
+      srcset="img/optimized/hero-640.webp 640w, img/optimized/hero-1280.webp 1280w, img/optimized/hero-1920.webp 1920w"
+      sizes="100vw" width="4284" height="5712"
+      alt="Traditional Maltese tile in a wooden frame by Ħatab" fetchpriority="high">
     <div class="hero-content">
       <h1>Wooden curiosities handmade in Malta</h1>
       <p>Keepsake boxes, picture frames, desk organisers and more. Handmade in Malta using traditional methods and combining reclaimed and fresh wood for a rustic look and feel.</p>
@@ -509,14 +544,335 @@
     <h2 class="section-title">Recent Projects</h2>
 
     <div class="carousel-wrapper">
-      <div class="carousel-track" id="carousel-track"></div>
+      <div class="carousel-track" id="carousel-track">
+        <article class="carousel-slide project-card" id="project-bookstand">
+          <a class="project-cover" href="img/optimized/bookstand/1-1600.webp" aria-labelledby="bookstand-title">
+            <img class="project-thumbnail" src="img/optimized/bookstand/1-320.webp"
+              srcset="img/optimized/bookstand/1-320.webp 320w, img/optimized/bookstand/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="1536" height="2040"
+              alt="Three-layer bookstand made of poplar" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="bookstand-title">Bookstand</h3>
+              <p class="project-description">Three layer book stand made of poplar.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 4 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/bookstand/1-1600.webp" data-original="img/bookstand/1.jpeg">
+                <img src="img/optimized/bookstand/1-320.webp" width="1536" height="2040"
+                  alt="Three-layer bookstand made of poplar — photo 1 of 4" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/bookstand/2-1600.webp" data-original="img/bookstand/2.jpeg">
+                <img src="img/optimized/bookstand/2-320.webp" width="1536" height="2040"
+                  alt="Three-layer bookstand made of poplar — photo 2 of 4" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/bookstand/3-1600.webp" data-original="img/bookstand/3.jpeg">
+                <img src="img/optimized/bookstand/3-320.webp" width="1536" height="2040"
+                  alt="Three-layer bookstand made of poplar — photo 3 of 4" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/bookstand/4-1600.webp" data-original="img/bookstand/4.jpeg">
+                <img src="img/optimized/bookstand/4-320.webp" width="1536" height="2040"
+                  alt="Three-layer bookstand made of poplar — photo 4 of 4" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-framed-maltese-tile">
+          <a class="project-cover" href="img/optimized/tile/1-1600.webp" aria-labelledby="framed-maltese-tile-title">
+            <img class="project-thumbnail" src="img/optimized/tile/1-320.webp"
+              srcset="img/optimized/tile/1-320.webp 320w, img/optimized/tile/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="4284" height="5712"
+              alt="Traditional Maltese floor tile in a polished wooden frame" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="framed-maltese-tile-title">Framed Maltese Tile</h3>
+              <p class="project-description">Traditional Maltese floor tile, framed and polished.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 2 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/tile/1-1600.webp" data-original="img/tile/1.jpg">
+                <img src="img/optimized/tile/1-320.webp" width="4284" height="5712"
+                  alt="Traditional Maltese floor tile in a polished wooden frame — photo 1 of 2" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/tile/2-1600.webp" data-original="img/tile/2.jpg">
+                <img src="img/optimized/tile/2-320.webp" width="4284" height="5712"
+                  alt="Traditional Maltese floor tile in a polished wooden frame — photo 2 of 2" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-handbag-concept">
+          <a class="project-cover" href="img/optimized/handbag/1-1600.webp" aria-labelledby="handbag-concept-title">
+            <img class="project-thumbnail" src="img/optimized/handbag/1-320.webp"
+              srcset="img/optimized/handbag/1-320.webp 320w, img/optimized/handbag/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="5712" height="4284"
+              alt="Handbag concept made from wood and leather" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="handbag-concept-title">Handbag Concept</h3>
+              <p class="project-description">Wood and leather handbag concept.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 3 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/handbag/1-1600.webp" data-original="img/handbag/1.jpg">
+                <img src="img/optimized/handbag/1-320.webp" width="5712" height="4284"
+                  alt="Handbag concept made from wood and leather — photo 1 of 3" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/handbag/2-1600.webp" data-original="img/handbag/2.jpg">
+                <img src="img/optimized/handbag/2-320.webp" width="5712" height="4284"
+                  alt="Handbag concept made from wood and leather — photo 2 of 3" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/handbag/3-1600.webp" data-original="img/handbag/3.jpg">
+                <img src="img/optimized/handbag/3-320.webp" width="5712" height="4284"
+                  alt="Handbag concept made from wood and leather — photo 3 of 3" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-desktop">
+          <a class="project-cover" href="img/optimized/desktop/5-1600.webp" aria-labelledby="desktop-title">
+            <img class="project-thumbnail" src="img/optimized/desktop/5-320.webp"
+              srcset="img/optimized/desktop/5-320.webp 320w, img/optimized/desktop/5-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="1448" height="1086"
+              alt="Desktop made from reclaimed lumber" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="desktop-title">Desktop</h3>
+              <p class="project-description">Desktop from reclaimed lumber.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 5 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/desktop/1-1600.webp" data-original="img/desktop/1.jpg">
+                <img src="img/optimized/desktop/1-320.webp" width="3840" height="2160"
+                  alt="Desktop made from reclaimed lumber — photo 1 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/desktop/2-1600.webp" data-original="img/desktop/2.jpg">
+                <img src="img/optimized/desktop/2-320.webp" width="5712" height="4284"
+                  alt="Desktop made from reclaimed lumber — photo 2 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/desktop/3-1600.webp" data-original="img/desktop/3.jpg">
+                <img src="img/optimized/desktop/3-320.webp" width="5712" height="4284"
+                  alt="Desktop made from reclaimed lumber — photo 3 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/desktop/4-1600.webp" data-original="img/desktop/4.jpg">
+                <img src="img/optimized/desktop/4-320.webp" width="5712" height="4284"
+                  alt="Desktop made from reclaimed lumber — photo 4 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/desktop/5-1600.webp" data-original="img/desktop/5.jpg">
+                <img src="img/optimized/desktop/5-320.webp" width="1448" height="1086"
+                  alt="Desktop made from reclaimed lumber — photo 5 of 5" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-monitor-stand">
+          <a class="project-cover" href="img/optimized/monitor_stand/1-1600.webp" aria-labelledby="monitor-stand-title">
+            <img class="project-thumbnail" src="img/optimized/monitor_stand/1-320.webp"
+              srcset="img/optimized/monitor_stand/1-320.webp 320w, img/optimized/monitor_stand/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="5712" height="4284"
+              alt="Poplar monitor stand with a drawer" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="monitor-stand-title">Monitor Stand</h3>
+              <p class="project-description">Monitor stand with drawer. Poplar.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 3 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/monitor_stand/1-1600.webp" data-original="img/monitor_stand/1.jpg">
+                <img src="img/optimized/monitor_stand/1-320.webp" width="5712" height="4284"
+                  alt="Poplar monitor stand with a drawer — photo 1 of 3" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/monitor_stand/2-1600.webp" data-original="img/monitor_stand/2.jpg">
+                <img src="img/optimized/monitor_stand/2-320.webp" width="5712" height="4284"
+                  alt="Poplar monitor stand with a drawer — photo 2 of 3" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/monitor_stand/3-1600.webp" data-original="img/monitor_stand/3.jpg">
+                <img src="img/optimized/monitor_stand/3-320.webp" width="5712" height="4284"
+                  alt="Poplar monitor stand with a drawer — photo 3 of 3" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-dovetail-boxes">
+          <a class="project-cover" href="img/optimized/boxes_poplar/1-1600.webp" aria-labelledby="dovetail-boxes-title">
+            <img class="project-thumbnail" src="img/optimized/boxes_poplar/1-320.webp"
+              srcset="img/optimized/boxes_poplar/1-320.webp 320w, img/optimized/boxes_poplar/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="5712" height="4284"
+              alt="Poplar keepsake boxes with dovetail joinery" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="dovetail-boxes-title">Dovetail Boxes</h3>
+              <p class="project-description">Traditional keepsake boxes with dovetail joinery, in poplar.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 5 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/boxes_poplar/1-1600.webp" data-original="img/boxes_poplar/1.jpg">
+                <img src="img/optimized/boxes_poplar/1-320.webp" width="5712" height="4284"
+                  alt="Poplar keepsake boxes with dovetail joinery — photo 1 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/boxes_poplar/2-1600.webp" data-original="img/boxes_poplar/2.jpg">
+                <img src="img/optimized/boxes_poplar/2-320.webp" width="5712" height="4284"
+                  alt="Poplar keepsake boxes with dovetail joinery — photo 2 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/boxes_poplar/3-1600.webp" data-original="img/boxes_poplar/3.jpg">
+                <img src="img/optimized/boxes_poplar/3-320.webp" width="5712" height="4284"
+                  alt="Poplar keepsake boxes with dovetail joinery — photo 3 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/boxes_poplar/4-1600.webp" data-original="img/boxes_poplar/4.jpg">
+                <img src="img/optimized/boxes_poplar/4-320.webp" width="5712" height="4284"
+                  alt="Poplar keepsake boxes with dovetail joinery — photo 4 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/boxes_poplar/5-1600.webp" data-original="img/boxes_poplar/5.jpg">
+                <img src="img/optimized/boxes_poplar/5-320.webp" width="5712" height="4284"
+                  alt="Poplar keepsake boxes with dovetail joinery — photo 5 of 5" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-picture-frames">
+          <a class="project-cover" href="img/optimized/frames/1-1600.webp" aria-labelledby="picture-frames-title">
+            <img class="project-thumbnail" src="img/optimized/frames/1-320.webp"
+              srcset="img/optimized/frames/1-320.webp 320w, img/optimized/frames/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="5712" height="4284"
+              alt="Rustic picture frames made from reclaimed pallet wood" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="picture-frames-title">Picture Frames</h3>
+              <p class="project-description">Rustic picture frames from recycled pallet wood.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 2 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/frames/1-1600.webp" data-original="img/frames/1.jpg">
+                <img src="img/optimized/frames/1-320.webp" width="5712" height="4284"
+                  alt="Rustic picture frames made from reclaimed pallet wood — photo 1 of 2" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/frames/2-1600.webp" data-original="img/frames/2.jpg">
+                <img src="img/optimized/frames/2-320.webp" width="5712" height="4284"
+                  alt="Rustic picture frames made from reclaimed pallet wood — photo 2 of 2" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-medal-frame">
+          <a class="project-cover" href="img/optimized/medals/1-1600.webp" aria-labelledby="medal-frame-title">
+            <img class="project-thumbnail" src="img/optimized/medals/1-320.webp"
+              srcset="img/optimized/medals/1-320.webp 320w, img/optimized/medals/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="3072" height="4080"
+              alt="Wooden display frame for sporting medals" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="medal-frame-title">Medal Frame</h3>
+              <p class="project-description">A showcase for sporting medals, from reclaimed and poplar wood.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View photo</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/medals/1-1600.webp" data-original="img/medals/1.jpg">
+                <img src="img/optimized/medals/1-320.webp" width="3072" height="4080"
+                  alt="Wooden display frame for sporting medals — photo 1 of 1" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-reclaimed-wood-dovetail-box">
+          <a class="project-cover" href="img/optimized/pallet_box/1-1600.webp" aria-labelledby="reclaimed-wood-dovetail-box-title">
+            <img class="project-thumbnail" src="img/optimized/pallet_box/1-320.webp"
+              srcset="img/optimized/pallet_box/1-320.webp 320w, img/optimized/pallet_box/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="5712" height="4284"
+              alt="Reclaimed pallet wood keepsake box with dovetail joinery" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="reclaimed-wood-dovetail-box-title">Reclaimed Wood Dovetail Box</h3>
+              <p class="project-description">Traditional keepsake box with dovetail joinery, from reclaimed pallet wood.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 5 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/pallet_box/1-1600.webp" data-original="img/pallet_box/1.jpg">
+                <img src="img/optimized/pallet_box/1-320.webp" width="5712" height="4284"
+                  alt="Reclaimed pallet wood keepsake box with dovetail joinery — photo 1 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/pallet_box/2-1600.webp" data-original="img/pallet_box/2.jpg">
+                <img src="img/optimized/pallet_box/2-320.webp" width="5712" height="4284"
+                  alt="Reclaimed pallet wood keepsake box with dovetail joinery — photo 2 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/pallet_box/3-1600.webp" data-original="img/pallet_box/3.jpg">
+                <img src="img/optimized/pallet_box/3-320.webp" width="5712" height="4284"
+                  alt="Reclaimed pallet wood keepsake box with dovetail joinery — photo 3 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/pallet_box/4-1600.webp" data-original="img/pallet_box/4.jpg">
+                <img src="img/optimized/pallet_box/4-320.webp" width="5712" height="4284"
+                  alt="Reclaimed pallet wood keepsake box with dovetail joinery — photo 4 of 5" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/pallet_box/5-1600.webp" data-original="img/pallet_box/5.jpg">
+                <img src="img/optimized/pallet_box/5-320.webp" width="5712" height="4284"
+                  alt="Reclaimed pallet wood keepsake box with dovetail joinery — photo 5 of 5" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+        <article class="carousel-slide project-card" id="project-reclaimed-wood-keepsake-boxes">
+          <a class="project-cover" href="img/optimized/more_boxes/1-1600.webp" aria-labelledby="reclaimed-wood-keepsake-boxes-title">
+            <img class="project-thumbnail" src="img/optimized/more_boxes/1-320.webp"
+              srcset="img/optimized/more_boxes/1-320.webp 320w, img/optimized/more_boxes/1-640.webp 640w"
+              sizes="(max-width: 768px) 280px, 340px" width="899" height="1599"
+              alt="Keepsake boxes made from reclaimed wood" loading="lazy" decoding="async">
+            <div class="card-body">
+              <h3 id="reclaimed-wood-keepsake-boxes-title">Reclaimed Wood Keepsake Boxes</h3>
+              <p class="project-description">Simple keepsake boxes in various styles. All from reclaimed wood.</p>
+              <p class="card-hint">Tap to view gallery</p>
+            </div>
+          </a>
+          <details class="project-gallery">
+            <summary>View all 4 photos</summary>
+            <div class="project-photos">
+              <a class="project-photo" href="img/optimized/more_boxes/1-1600.webp" data-original="img/more_boxes/1.jpg">
+                <img src="img/optimized/more_boxes/1-320.webp" width="899" height="1599"
+                  alt="Keepsake boxes made from reclaimed wood — photo 1 of 4" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/more_boxes/2-1600.webp" data-original="img/more_boxes/2.jpg">
+                <img src="img/optimized/more_boxes/2-320.webp" width="3072" height="4080"
+                  alt="Keepsake boxes made from reclaimed wood — photo 2 of 4" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/more_boxes/3-1600.webp" data-original="img/more_boxes/3.jpg">
+                <img src="img/optimized/more_boxes/3-320.webp" width="3072" height="4080"
+                  alt="Keepsake boxes made from reclaimed wood — photo 3 of 4" loading="lazy" decoding="async">
+              </a>
+              <a class="project-photo" href="img/optimized/more_boxes/4-1600.webp" data-original="img/more_boxes/4.jpg">
+                <img src="img/optimized/more_boxes/4-320.webp" width="3072" height="4080"
+                  alt="Keepsake boxes made from reclaimed wood — photo 4 of 4" loading="lazy" decoding="async">
+              </a>
+            </div>
+          </details>
+        </article>
+      </div>
     </div>
   </section>
 
   <!-- About -->
   <section id="about">
     <div class="about-grid">
-      <img src="img/me.jpg" alt="Arthur Demanuele" class="about-image-placeholder">
+      <img src="img/optimized/me-480.webp"
+        srcset="img/optimized/me-480.webp 480w, img/optimized/me-960.webp 960w"
+        sizes="(max-width: 480px) calc(100vw - 2rem), (max-width: 768px) calc(100vw - 4rem), 456px"
+        alt="Arthur Demanuele" class="about-image-placeholder"
+        width="3243" height="2060" loading="lazy" decoding="async">
       <div class="about-text">
         <h2>About Me</h2>
         <p>Hello. My name is Arthur and I am a self-taught woodworker, native to Malta. I have been pursuing this craft properly since 2023 but have been interested in it from a very young age.</p>
@@ -531,7 +887,8 @@
   </section>
 
   <!-- Lightbox Modal -->
-  <div class="lightbox" id="lightbox">
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true"
+    aria-labelledby="lb-title" aria-describedby="lb-desc" aria-hidden="true" tabindex="-1">
     <button class="lightbox-close" aria-label="Close gallery">&times;</button>
     <h3 class="lightbox-title" id="lb-title"></h3>
     <p class="lightbox-desc" id="lb-desc"></p>
@@ -540,7 +897,7 @@
       <div class="lightbox-gallery" id="lb-gallery"></div>
       <button class="lightbox-nav next" aria-label="Next image">&#8250;</button>
     </div>
-    <p class="lightbox-counter" id="lb-counter"></p>
+    <p class="lightbox-counter" id="lb-counter" aria-live="polite"></p>
   </div>
 
   <!-- Footer -->
@@ -550,241 +907,131 @@
 
   <script>
     (function () {
-      // Optional carouselImageIndex selects an image by zero-based index; defaults to 0.
-      var projects = [
-        {
-          title: "Bookstand",
-          desc: "Three layer book stand made of poplar.",
-          images: [
-            { background: "url(img/bookstand/1.jpeg)" },
-            { background: "url(img/bookstand/2.jpeg)" },
-            { background: "url(img/bookstand/3.jpeg)" },
-            { background: "url(img/bookstand/4.jpeg)" }
-          ]
-        },
-        {
-          title: "Framed Maltese Tile",
-          desc: "Traditional Maltese floor tile, framed and polished.",
-          images: [
-            { background: "url(img/tile/1.jpg)" },
-            { background: "url(img/tile/2.jpg)" }
-          ]
-        },
-        {
-          title: "Handbag Concept",
-          desc: "Wood and leather handbag concept.",
-          images: [
-            { background: "url(img/handbag/1.jpg)" },
-            { background: "url(img/handbag/2.jpg)" },
-            { background: "url(img/handbag/3.jpg)" }
-          ]
-        },
-        {
-          title: "Desktop",
-          desc: "Desktop from reclaimed lumber.",
-          carouselImageIndex: 4,
-          images: [
-            { background: "url(img/desktop/1.jpg)" },
-            { background: "url(img/desktop/2.jpg)" },
-            { background: "url(img/desktop/3.jpg)" },
-            { background: "url(img/desktop/4.jpg)" },
-            { background: "url(img/desktop/5.jpg)" }
-          ]
-        },
-        {
-          title: "Monitor Stand",
-          desc: "Monitor stand with drawer. Poplar.",
-          images: [
-            { background: "url(img/monitor_stand/1.jpg)" },
-            { background: "url(img/monitor_stand/2.jpg)" },
-            { background: "url(img/monitor_stand/3.jpg)" }
-          ]
-        },
-        {
-          title: "Dovetail Boxes",
-          desc: "Traditional keepsake boxes with dovetail joinery, in poplar.",
-          images: [
-            { background: "url(img/boxes_poplar/1.jpg)" },
-            { background: "url(img/boxes_poplar/2.jpg)" },
-            { background: "url(img/boxes_poplar/3.jpg)" },
-            { background: "url(img/boxes_poplar/4.jpg)" },
-            { background: "url(img/boxes_poplar/5.jpg)" }
-          ]
-        },
-        {
-          title: "Picture Frames",
-          desc: "Rustic picture frames from recycled pallet wood.",
-          images: [
-            { background: "url(img/frames/1.jpg)" },
-            { background: "url(img/frames/2.jpg)" }
-          ]
-        },
-        {
-          title: "Medal Frame",
-          desc: "A showcase for sporting medals, from reclaimed and poplar wood.",
-          images: [
-            { background: "url(img/medals/1.jpg)" }
-          ]
-        },
-        {
-          title: "Reclaimed Wood Dovetail Box",
-          desc: "Traditional keepsake box with dovetail joinery, from reclaimed pallet wood.",
-          images: [
-            { background: "url(img/pallet_box/1.jpg)" },
-            { background: "url(img/pallet_box/2.jpg)" },
-            { background: "url(img/pallet_box/3.jpg)" },
-            { background: "url(img/pallet_box/4.jpg)" },
-            { background: "url(img/pallet_box/5.jpg)" }
-          ]
-        },
-        {
-          title: "Reclaimed Wood Keepsake Boxes",
-          desc: "Simple keepsake boxes in various styles. All from reclaimed wood.",
-          images: [
-            { background: "url(img/more_boxes/1.jpg)" },
-            { background: "url(img/more_boxes/2.jpg)" },
-            { background: "url(img/more_boxes/3.jpg)" },
-            { background: "url(img/more_boxes/4.jpg)" }
-          ]
-        }
-      ];
-
-      function setBg(el, value) {
-        if (value.indexOf('url(') === 0) {
-          el.style.backgroundImage = value;
-        } else {
-          el.style.background = value;
-        }
-      }
-
-      // ── Build carousel cards from the array ──
-      var track = document.getElementById('carousel-track');
-
-      projects.forEach(function (project, index) {
-        var slide = document.createElement('div');
-        slide.className = 'carousel-slide';
-
-        var card = document.createElement('div');
-        card.className = 'project-card';
-
-        var thumb = document.createElement('div');
-        thumb.className = 'image-placeholder';
-        var imageIndex = project.carouselImageIndex;
-        var carouselImage = Number.isInteger(imageIndex) && imageIndex >= 0 && imageIndex < project.images.length
-          ? project.images[imageIndex]
-          : project.images[0];
-        setBg(thumb, carouselImage.background);
-        thumb.textContent = carouselImage.label;
-
-        var body = document.createElement('div');
-        body.className = 'card-body';
-        body.innerHTML =
-          '<h3>' + project.title + '</h3>' +
-          '<p>' + project.desc + '</p>' +
-          '<p class="card-hint">Tap to view gallery</p>';
-
-        card.appendChild(thumb);
-        card.appendChild(body);
-        card.addEventListener('click', function () { openLightbox(index); });
-        slide.appendChild(card);
-        track.appendChild(slide);
-      });
-
-      // ── Lightbox ──
+      // Project content and photograph links live in the HTML, including without JS.
       var lightbox = document.getElementById('lightbox');
       var lbTitle = document.getElementById('lb-title');
       var lbDesc = document.getElementById('lb-desc');
       var lbGallery = document.getElementById('lb-gallery');
       var lbCounter = document.getElementById('lb-counter');
+      var closeButton = lightbox.querySelector('.lightbox-close');
       var currentSlide = 0;
-      var gallerySlides = [];
+      var photos = [];
+      var galleryImage = null;
+      var previousFocus = null;
+      var previousOverflow = '';
 
-      function openLightbox(projectIndex) {
-        var project = projects[projectIndex];
-        lbTitle.textContent = project.title;
-        lbDesc.textContent = project.desc;
+      function isPlainClick(event) {
+        return event.button === 0 && !event.ctrlKey && !event.metaKey &&
+          !event.shiftKey && !event.altKey;
+      }
 
-        // Remove old slides
-        lbGallery.querySelectorAll('.gallery-slide').forEach(function (el) { el.remove(); });
-
-        gallerySlides = [];
-        project.images.forEach(function (img, i) {
-          var div = document.createElement('div');
-          div.className = 'gallery-slide';
-          setBg(div, img.background);
-          div.textContent = img.label;
-          if (i === 0) div.classList.add('active');
-          lbGallery.appendChild(div);
-          gallerySlides.push(div);
+      document.querySelectorAll('.project-card').forEach(function (card) {
+        card.addEventListener('click', function (event) {
+          if (!isPlainClick(event) || event.target.closest('details')) return;
+          event.preventDefault();
+          openLightbox(card, 0);
         });
+        card.querySelectorAll('.project-photo').forEach(function (link, index) {
+          link.addEventListener('click', function (event) {
+            if (!isPlainClick(event)) return;
+            event.preventDefault();
+            openLightbox(card, index);
+          });
+        });
+      });
 
-        currentSlide = 0;
-        updateCounter();
+      function openLightbox(card, index) {
+        photos = Array.from(card.querySelectorAll('.project-photo'));
+        if (!photos.length) return;
+        previousFocus = document.activeElement;
+        previousOverflow = document.body.style.overflow;
+        lbTitle.textContent = card.querySelector('h3').textContent;
+        lbDesc.textContent = card.querySelector('.project-description').textContent;
+        galleryImage = document.createElement('img');
+        galleryImage.decoding = 'async';
+        lbGallery.replaceChildren(galleryImage);
+        goToSlide(index);
         lightbox.classList.add('open');
+        lightbox.setAttribute('aria-hidden', 'false');
         document.body.style.overflow = 'hidden';
+        closeButton.focus();
       }
 
       function closeLightbox() {
+        if (!lightbox.classList.contains('open')) return;
         lightbox.classList.remove('open');
-        document.body.style.overflow = '';
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = previousOverflow;
+        lbGallery.replaceChildren();
+        galleryImage = null;
+        photos = [];
+        if (previousFocus) previousFocus.focus({ preventScroll: true });
       }
 
       function goToSlide(index) {
-        gallerySlides[currentSlide].classList.remove('active');
-        currentSlide = ((index % gallerySlides.length) + gallerySlides.length) % gallerySlides.length;
-        gallerySlides[currentSlide].classList.add('active');
-        updateCounter();
+        if (!photos.length || !galleryImage) return;
+        currentSlide = ((index % photos.length) + photos.length) % photos.length;
+        var link = photos[currentSlide];
+        var thumbnail = link.querySelector('img');
+        galleryImage.alt = thumbnail.alt;
+        galleryImage.width = Number(thumbnail.getAttribute('width'));
+        galleryImage.height = Number(thumbnail.getAttribute('height'));
+        galleryImage.src = link.href;
+        lbCounter.textContent = (currentSlide + 1) + ' / ' + photos.length;
       }
 
-      function updateCounter() {
-        lbCounter.textContent = (currentSlide + 1) + ' / ' + gallerySlides.length;
-      }
-
-      lightbox.querySelector('.lightbox-close').addEventListener('click', closeLightbox);
-
-      lightbox.addEventListener('click', function (e) {
-        if (e.target === lightbox) closeLightbox();
+      closeButton.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox) closeLightbox();
       });
-
-      lightbox.querySelector('.lightbox-nav.prev').addEventListener('click', function (e) {
-        e.stopPropagation();
+      lightbox.querySelector('.lightbox-nav.prev').addEventListener('click', function () {
         goToSlide(currentSlide - 1);
       });
-
-      lightbox.querySelector('.lightbox-nav.next').addEventListener('click', function (e) {
-        e.stopPropagation();
+      lightbox.querySelector('.lightbox-nav.next').addEventListener('click', function () {
         goToSlide(currentSlide + 1);
       });
 
-      document.addEventListener('keydown', function (e) {
+      document.addEventListener('keydown', function (event) {
         if (!lightbox.classList.contains('open')) return;
-        if (e.key === 'Escape') closeLightbox();
-        if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
-        if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+        if (event.key === 'Escape') closeLightbox();
+        if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          event.preventDefault();
+          goToSlide(currentSlide + (event.key === 'ArrowLeft' ? -1 : 1));
+        }
+        if (event.key === 'Tab') {
+          var controls = Array.from(lightbox.querySelectorAll('button')).filter(function (button) {
+            return button.getClientRects().length > 0;
+          });
+          var first = controls[0];
+          var last = controls[controls.length - 1];
+          if (event.shiftKey && document.activeElement === first) {
+            event.preventDefault();
+            last.focus();
+          } else if (!event.shiftKey && document.activeElement === last) {
+            event.preventDefault();
+            first.focus();
+          }
+        }
       });
 
-      // ── Touch swipe support ──
       var touchStartX = 0;
       var touchStartY = 0;
       var swiping = false;
-
-      lbGallery.addEventListener('touchstart', function (e) {
-        touchStartX = e.changedTouches[0].clientX;
-        touchStartY = e.changedTouches[0].clientY;
+      lbGallery.addEventListener('touchstart', function (event) {
+        touchStartX = event.changedTouches[0].clientX;
+        touchStartY = event.changedTouches[0].clientY;
         swiping = true;
       }, { passive: true });
-
-      lbGallery.addEventListener('touchend', function (e) {
+      lbGallery.addEventListener('touchend', function (event) {
         if (!swiping) return;
         swiping = false;
-        var dx = e.changedTouches[0].clientX - touchStartX;
-        var dy = e.changedTouches[0].clientY - touchStartY;
+        var dx = event.changedTouches[0].clientX - touchStartX;
+        var dy = event.changedTouches[0].clientY - touchStartY;
         if (Math.abs(dx) < 40 || Math.abs(dy) > Math.abs(dx)) return;
-        if (dx < 0) {
-          goToSlide(currentSlide + 1);
-        } else {
-          goToSlide(currentSlide - 1);
-        }
+        goToSlide(currentSlide + (dx < 0 ? 1 : -1));
+      }, { passive: true });
+      lbGallery.addEventListener('touchcancel', function () {
+        swiping = false;
       }, { passive: true });
     })();
   </script>
